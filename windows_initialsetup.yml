@@ -9,6 +9,7 @@
       - python
       - git
       - VisualStudioCode
+      - typescript
 #      - golang
 #      - adobereader
 #      - thunderbird
@@ -56,11 +57,11 @@
         - { path: 'HKCU:\SOFTWARE\Microsoft\ServerManager', name: DoNotOpenServerManagerAtLogon, data: 1 }
         - { path: 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server', name: fDenyTSConnections, data: 0 }
 
-    - name: Install Telnet Client
-      win_feature:
-        name: "Telnet-Client"
-        include_sub_features: yes
-        include_management_tools: yes
+#    - name: Install Telnet Client
+#      win_feature:
+#        name: "Telnet-Client"
+#        include_sub_features: yes
+#        include_management_tools: yes
 
     - name: Install required packages
       win_chocolatey:
@@ -87,3 +88,6 @@
     - name: Reboot
       win_reboot:
       when: hostname_result.reboot_required
+
+    - name: git_test script
+      script: windows_Script/git_sample_Code.ps1
