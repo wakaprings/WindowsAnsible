@@ -11,8 +11,9 @@
       - VisualStudioCode
       - typescript
       - golang
-      - adobereader
       - thunderbird
+#      - mingw
+#      - adobereader
 
   tasks:
     - name: Setup Timezones
@@ -88,6 +89,3 @@
     - name: Reboot
       win_reboot:
       when: hostname_result.reboot_required
-
-    - name: git_test script
-      script: windows_Script/git_sample_Code.ps1

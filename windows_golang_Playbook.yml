@@ -1,0 +1,26 @@
+---
+- name: Initialize OS setting for Windows Servers
+  hosts: windows_servers
+
+  tasks:
+    # 初期実行のみ必要
+    - name: goFile Copy
+      ansible.windows.win_copy:
+        src: golang03/
+        dest: c:\golang03_{{ ansible_date_time.date }}_{{ ansible_date_time.hour}}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}\
+
+
+#    # Install a Windows feature and reboot if necessary
+#    - name: Install IIS Web-Server
+#      ansible.windows.win_feature:
+#        name: Web-Server
+#      register: iis_install
+
+#    - name: Reboot when Web-Server feature requires it
+#      ansible.windows.win_reboot:
+#      when: iis_install.reboot_required
+
+      # 強制で再起動してしまうため、コメントアウト
+#    - name: Reboot
+#      win_reboot:
+#        post_reboot_delay: 3600
