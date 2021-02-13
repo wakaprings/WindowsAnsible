@@ -8,9 +8,9 @@
       - googlechrome
       - python
       - git
+      - VisualStudioCode
 #      - golang
 #      - adobereader
-#      - VisualStudioCode
 #      - thunderbird
 
   tasks:
@@ -83,7 +83,7 @@
 ##          - NewLogSource1
 ##          - NewLogSource2
 ##        state: present
-#
-#    #    - name: Reboot
-#      win_reboot:
-#      when: hostname_result.reboot_required
+
+    - name: Reboot
+      win_reboot:
+      when: hostname_result.reboot_required
