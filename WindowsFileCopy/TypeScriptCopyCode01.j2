@@ -1,0 +1,19 @@
+# 新規ブランチ作成
+git checkout -b create-package-json
+git branch
+
+# TypeScript
+npm init -y
+git status
+# git通例コマンド
+git add .
+git commit -m "TypeScript Commmit {{ ansible_date_time.date }}_{{ ansible_date_time.hour}}:{{ ansible_date_time.minute }}:{{ ansible_date_time.second }}"
+# githubへのプッシュ
+git push -u origin HEAD
+git merge -
+git push origin HEAD
+
+npm install -g npm
+
+npx ts-node-dev --respawn xxxxxxxx.ts
+
