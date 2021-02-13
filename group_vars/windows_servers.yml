@@ -1,0 +1,34 @@
+---
+ansible_user: administrator
+ansible_password: 'Z1nnyAnT1'
+ansible_port: 5986
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
+
+### Windows Server側の初期設定
+# SSL/TLS
+# https://qiita.com/tikkss@github/items/4db7bec95a7337ca826d
+# > [Net.ServicePointManager]::SecurityProtocol
+# Ssl3, Tls
+# > [Net.ServicePointManager]::SecurityProtocol
+# Ssl3, Tls
+# > $profile  # 手動作成
+# C:\Users\xxxxx\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+# ※ファイル内に記載する
+#  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+
+# https://qiita.com/yunano/items/f9d5652a296931a09a70
+# mkdir C:\work
+# PS > cd C:\work
+# PS > Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
+# PS > powershell -ExecutionPolicy RemoteSigned .\ConfigureRemotingForAnsible.ps1
+
+# テストコマンド
+# ansible windows_servers -i inventory.ini -m  win_ping
+# ※rawモジュール
+# ansible windows_servers -i inventory.ini -m  raw -a 'Get-Date'
+# ※scriptモジュール(コントローラ側(Ansible側)にhelloworld.ps1を配備する)
+# ansible windows_servers -i inventory.ini -m script -a helloworld.ps1
+
+# Windows初期設定
+# ansible-playbook -i ./inventory.ini ./windows_initialsetup.yml

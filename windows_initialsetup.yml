@@ -1,0 +1,89 @@
+---
+- name: Initialize OS setting for Windows Servers
+  hosts: windows_servers
+
+  vars:
+    win_shared_folder: C:/shares/documents
+    required_packages:
+      - googlechrome
+      - python
+      - git
+#      - golang
+#      - adobereader
+#      - VisualStudioCode
+#      - thunderbird
+
+  tasks:
+    - name: Setup Timezones
+      win_timezone:
+        timezone: "Tokyo Standard Time"
+      # https://technet.microsoft.com/ja-jp/library/cc749073(v=ws.10).aspx
+
+    - name: Sync local time
+      script: windows_Script/SyncLocalTime.ps1
+
+    - name: Create windows users
+      win_user:
+        name: User01
+        password: 'E7iWJEVhAnD4pyTq'
+        groups: "Administrators"
+        description: "Ansible Test User01"
+        password_never_expires: yes
+
+    - name: Create shared folder
+      win_file:
+        path: "{{ win_shared_folder }}"
+        state: directory
+
+    - name: Allow public share folder
+      win_share:
+        name: documents
+        description: Shared documents
+        state: present
+        path: "{{ win_shared_folder }}"
+        full: Administrators,User01
+
+   # https://support.microsoft.com/ja-jp/kb/182569
+   # http://www.atmarkit.co.jp/ait/articles/1501/16/news085.html
+    - name: Setup registry key
+      win_regedit:
+        path: "{{ item.path }}"
+        name: "{{ item.name }}"
+        data: "{{ item.data }}"
+        datatype: "{{ item.datatype|default('dword') }}"
+      with_items:
+#        - { path: 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings', name: ProxyServer, data: "proxy.example.local:8080", datatype: string }
+        - { path: 'HKCU:\SOFTWARE\Microsoft\ServerManager', name: DoNotOpenServerManagerAtLogon, data: 1 }
+        - { path: 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server', name: fDenyTSConnections, data: 0 }
+
+    - name: Install Telnet Client
+      win_feature:
+        name: "Telnet-Client"
+        include_sub_features: yes
+        include_management_tools: yes
+
+    - name: Install required packages
+      win_chocolatey:
+        name: "{{ required_packages }}"
+
+    - name: Setup hostname
+      win_hostname:
+        name: "{{ inventory_hostname }}"
+      register: hostname_result
+
+##    - name: Get disk facts
+##      win_command: wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
+##      register: usage
+##    - debug: msg="{{ usage.stdout }}"
+#   
+##    - name: Add a new event log with two custom sources
+##      win_eventlog:
+##        name: MyNewLog
+##        sources:
+##          - NewLogSource1
+##          - NewLogSource2
+##        state: present
+#
+#    #    - name: Reboot
+#      win_reboot:
+#      when: hostname_result.reboot_required
