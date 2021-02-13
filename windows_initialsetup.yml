@@ -25,7 +25,7 @@
     - name: Create windows users
       win_user:
         name: User01
-        password: 'E7iWJEVhAnD4pyTq'
+        password: 'l1O6086Nvh1WufYm'
         groups: "Administrators"
         description: "Ansible Test User01"
         password_never_expires: yes
