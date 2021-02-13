@@ -18,5 +18,3 @@ git config --global alias.st status
 git config --global alias.br branch
 git config --global alias.co checkout
 
-# "Default Web Site"Webサイトの起動状態を確認する
-Get-WebsiteState -Name "Default Web Site"

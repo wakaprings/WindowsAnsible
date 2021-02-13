@@ -1,0 +1,32 @@
+$OutputEncoding.EncodingName
+
+# (00) 初期設定
+# ネットワークインターフェース確認
+Get-NetIPInterface -AddressFamily IPv4
+
+# DHCP オフ (対象インターフェースは上記で確認した値)
+Set-NetIPInterface -InterfaceIndex 6 -Dhcp Disabled
+
+# IPアドレス, ゲートウェイを設定
+New-NetIPAddress -InterfaceIndex 6 -AddressFamily IPv4 -IPAddress "192.168.100.140" -PrefixLength 24 -DefaultGateway "192.168.100.1"
+
+# DNSを設定
+Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses "192.168.100.140" -PassThru
+
+# 設定確認
+ipconfig /all
+
+# (01) DNSサーバ構築
+# 管理ツールも含めて DNS をインストール
+Install-WindowsFeature DNS -IncludeManagementTools
+
+# 変更を有効にするため再起動
+Restart-Computer -Force
+
+# (02) IISインストール
+# 管理ツールも含めて IIS をインストール
+Install-WindowsFeature Web-Server -IncludeManagementTools
+
+# デフォルトサイトにアクセスして動作確認
+Invoke-WebRequest http://localhost
+

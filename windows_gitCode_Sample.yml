@@ -6,6 +6,15 @@
     - name: git_test script
       script: windows_Script/git_sample_Code.ps1
 
+    - name: IIS PowerShellCode Copy
+      ansible.windows.win_copy:
+        # remote_src: trueの場合、src: '\\192.168.100.100\share\Notes.zip'という使い方ができる
+        # remote_src: falseの場合、Ansibleサーバにあるファイル（src）を操作対象のディレクトリ（dest）にコピーする動きとなる
+        remote_src: false
+        src: WindowsFileCopy/IIS_CodeCopyPaste.txt
+        dest: c:\IISTest\IIS_CodeCopyPaste.txt
+
+
 #    # Install a Windows feature and reboot if necessary
 #    - name: Install IIS Web-Server
 #      ansible.windows.win_feature:
