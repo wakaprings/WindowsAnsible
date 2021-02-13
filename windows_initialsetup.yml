@@ -10,9 +10,9 @@
       - git
       - VisualStudioCode
       - typescript
-#      - golang
-#      - adobereader
-#      - thunderbird
+      - golang
+      - adobereader
+      - thunderbird
 
   tasks:
     - name: Setup Timezones
