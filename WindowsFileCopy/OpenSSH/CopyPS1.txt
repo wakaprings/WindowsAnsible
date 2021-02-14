@@ -1,0 +1,15 @@
+cd c:\OpenSSHFile\OpenSSH-Win64\OpenSSH-Win64
+
+// PowerShellで下記コマンド実行
+.\install-sshd.ps1
+// サービスで「Open SSH」を「自動」「実行状態」に変更する
+.\FixHostFilePermissions.ps1
+
+
+// FireWall無効化
+Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled false
+
+
+# Black JumboDogのダウンロード
+# powershell -File C:\TypeScriptTraining\powershell_test.ps1
+Invoke-WebRequest -Uri https://dforest.watch.impress.co.jp/library/b/blackjmbdog/10904/bjd-6.2.0.msi -OutFile c:\work\bjd-6.2.0.msi

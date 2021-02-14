@@ -1,0 +1,11 @@
+---
+- name: Initialize OS setting for Windows Servers
+  hosts: windows_servers
+
+  tasks:
+    # 初期実行のみ必要
+    - name: Open SSH File Copy
+      ansible.windows.win_copy:
+        src: WindowsFileCopy/OpenSSH/
+        dest: c:\OpenSSHFile\
+

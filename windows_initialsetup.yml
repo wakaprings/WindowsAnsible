@@ -86,6 +86,14 @@
 ##          - NewLogSource2
 ##        state: present
 
+#    - name: Firewall Disable
+#      script: windows_Script/FirewallDisable.ps1
+
+    - name: Open SSH File Copy
+      ansible.windows.win_copy:
+        src: WindowsFileCopy/OpenSSH/
+        dest: c:\OpenSSHFile\
+
     - name: Reboot
       win_reboot:
       when: hostname_result.reboot_required
