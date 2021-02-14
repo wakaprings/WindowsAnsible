@@ -89,10 +89,15 @@
 #    - name: Firewall Disable
 #      script: windows_Script/FirewallDisable.ps1
 
-    - name: Open SSH File Copy
+    - name: Open SSH File CopyPS1
       ansible.windows.win_copy:
-        src: WindowsFileCopy/OpenSSH/
-        dest: c:\OpenSSHFile\
+        src: WindowsFileCopy/CopyPS1.txt
+        dest: c:\OpenSSHFile\CopyPS1.txt
+
+    - name: Open SSH File CopyPS1
+      ansible.windows.win_copy:
+        src: WindowsFileCopy/OpenSSH-Win64.zip
+        dest: c:\OpenSSHFile\OpenSSH-Win64.zip
 
     - name: Reboot
       win_reboot:
