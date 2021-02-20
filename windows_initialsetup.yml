@@ -73,6 +73,20 @@
         name: "{{ inventory_hostname }}"
       register: hostname_result
 
+    - name: Create shared folder2
+      win_file:
+        path: c:\CopyFiles
+        state: directory
+
+    - name: Copy and Paste Files
+      ansible.windows.win_copy:
+        # remote_src: trueの場合、src: '\\192.168.100.100\share\Notes.zip'という使い方ができる
+        # remote_src: falseの場合、Ansibleサーバにあるファイル（src）を操作対象のディレクトリ（dest）にコピーする動きとなる
+        remote_src: false
+        src: WindowsFileCopy/CopyTesxt.txt
+        dest: c:\CopyFiles\CopyTesxt.txt
+
+
 ##    - name: Get disk facts
 ##      win_command: wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
 ##      register: usage

@@ -1,0 +1,13 @@
+# OpenSSHのダウンロード
+# https://obenkyolab.com/?p=1681#Step1_OpenSSH
+https://github.com/PowerShell/Win32-OpenSSH/releases
+
+# Firewall無効化
+Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled false
+
+# sqliteインストール
+choco install sqlite
+
+# neo4j
+choco install neo4j-community
+
