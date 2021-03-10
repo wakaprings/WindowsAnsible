@@ -7,13 +7,13 @@
     required_packages:
       - googlechrome
       - python
-      - git
-      - VisualStudioCode
-      - typescript
       - golang
-      - thunderbird
-#      - mingw
-#      - adobereader
+      # - git
+      # - VisualStudioCode
+      # - typescript
+      # - thunderbird
+      # - mingw
+      # - adobereader
 
   tasks:
     - name: Setup Timezones
@@ -32,18 +32,18 @@
         description: "Ansible Test User01"
         password_never_expires: yes
 
-    - name: Create shared folder
-      win_file:
-        path: "{{ win_shared_folder }}"
-        state: directory
+    # - name: Create shared folder
+    #   win_file:
+    #     path: "{{ win_shared_folder }}"
+    #     state: directory
 
-    - name: Allow public share folder
-      win_share:
-        name: documents
-        description: Shared documents
-        state: present
-        path: "{{ win_shared_folder }}"
-        full: Administrators,User01
+    # - name: Allow public share folder
+    #   win_share:
+    #     name: documents
+    #     description: Shared documents
+    #     state: present
+    #     path: "{{ win_shared_folder }}"
+    #     full: Administrators,User01
 
    # https://support.microsoft.com/ja-jp/kb/182569
    # http://www.atmarkit.co.jp/ait/articles/1501/16/news085.html
@@ -68,6 +68,24 @@
       win_chocolatey:
         name: "{{ required_packages }}"
 
+    # Windows Update関連：https://www.redhat.com/ja/explore/ansible/getting-started/windows-updates
+    # https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_updates_module.html
+    # - name: Do Windows Update 
+    #   ansible.windows.win_updates:
+    #     category_names:
+    #     - SecurityUpdates
+    #     # - CriticalUpdates
+    #     # - UpdateRollups
+    #     state: installed
+    #   register: update_result
+    # - name: debug
+    #   debug: 
+    #     var: update_result
+    #     verbosity: 0
+    # - name: reboot if needed
+    #   win_reboot:
+    #   when: update_result.reboot_required
+      
     - name: Setup hostname
       win_hostname:
         name: "{{ inventory_hostname }}"

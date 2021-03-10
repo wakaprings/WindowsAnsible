@@ -5,7 +5,18 @@ ansible_port: 5986
 ansible_connection: winrm
 ansible_winrm_server_cert_validation: ignore
 
-### Windows Server側の初期設定
+# ### Windows Server側の初期設定
+# mkdir C:\Users\Administrator\Documents\WindowsPowerShell\
+# cd C:\Users\Administrator\Documents\WindowsPowerShell\
+# echo [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; > Microsoft.PowerShell_profile.ps1
+# powershell -File Microsoft.PowerShell_profile.ps1
+
+# mkdir C:\work
+# cd C:\work
+# Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
+# powershell -ExecutionPolicy RemoteSigned .\ConfigureRemotingForAnsible.ps1
+
+
 # SSL/TLS
 # https://qiita.com/tikkss@github/items/4db7bec95a7337ca826d
 # > [Net.ServicePointManager]::SecurityProtocol
